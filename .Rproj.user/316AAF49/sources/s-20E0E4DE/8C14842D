@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "0",
     "id" : "8C14842D",
-    "lastKnownWriteTime" : 1571930288,
-    "last_content_update" : 1571930288,
+    "lastKnownWriteTime" : 1571961448,
+    "last_content_update" : 1571961448889,
     "path" : "~/workspace/华中科技大学/06-学生培养/062-本科教学/bioinformatics/01 - homology search/001 - run blast locally.Rmd",
     "project_path" : "01 - homology search/001 - run blast locally.Rmd",
     "properties" : {
-        "cursorPosition" : "158,97",
-        "scrollLine" : "151"
+        "cursorPosition" : "7,13",
+        "scrollLine" : "0"
     },
     "read_only" : false,
     "read_only_alternatives" : [
