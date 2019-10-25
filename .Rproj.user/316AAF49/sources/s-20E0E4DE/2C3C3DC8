@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "0",
     "id" : "2C3C3DC8",
-    "lastKnownWriteTime" : 1571969185,
-    "last_content_update" : 1571969185474,
+    "lastKnownWriteTime" : 1571972955,
+    "last_content_update" : 1571972955179,
     "path" : "~/workspace/华中科技大学/06-学生培养/062-本科教学/bioinformatics/03 - sequence processing/trimming_and_qc.Rmd",
     "project_path" : "03 - sequence processing/trimming_and_qc.Rmd",
     "properties" : {
-        "cursorPosition" : "66,17",
-        "scrollLine" : "36",
+        "cursorPosition" : "118,59",
+        "scrollLine" : "97",
         "tempName" : "Untitled1"
     },
     "read_only" : false,
