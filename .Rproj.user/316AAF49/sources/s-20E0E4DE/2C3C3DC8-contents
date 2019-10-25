@@ -1,0 +1,68 @@
+---
+title: "序列预处理：trimming和QC"
+subtitle: "HUST Bioinformatics course series"
+author: "Wei-Hua Chen (CC BY-NC 4.0)"
+institute: "HUST, China"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+  github_document:
+    toc: true
+    toc_depth: 2
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 学习要求
+
+* 操作系统为 Linux (Ubuntu或类似版本)，或 MacOS
+* 具有Linux系统操作基础
+
+## 1. 使用 ``` trimmomatic ``` 程序去除```接头、低质量碱基和短序列```
+
+```rawdata``` 在使用之前，需要去除```接头(adaptors)```，```低质量```和```短序列```。这些任务都可由 ``` trimmomatic ``` 程序完成。
+
+### 1.1. 下载``` trimmomatic ``` 程序
+
+* 在浏览器中输入地址： http://www.usadellab.org/cms/?page=trimmomatic
+
+* 选择并最新版的 ``` binary ``` 文件下载。目前最新版为 ``` Version 0.39 ``` （2019年10月）
+
+* 下载文件为 ``` .zip  ```  格式，可用 ``` unzip ``` 命令解压。会得到：
+
+```trimmomatic-0.39.jar``` 文件和 ``` adaptors/ ``` 目录。
+
+### 1.2. 处理双端数据 (pair-end or PE data)
+
+假设双端序列文件分别为（经gzip压缩）：
+
+```{sh eval=F}
+SRR12345_1.fq.gz
+SRR12345_2.fq.gz
+```
+
+其中```SRR12345_1.fq.gz```又称为  ``` forward ``` 文件，``` SRR12345_2.fq.gz ``` 又称为 ``` reverse ``` 文件。详情见 [Illumina 官方说明](https://support.illumina.com/bulletins/2016/04/fastq-files-explained.html)。
+
+``` trimmomatic ``` 命令如下：
+
+```{sh eval=F}
+java -jar /path/to/trimmomatic-0.39.jar PE \
+    SRR12345_1.fq.gz SRR12345_2.fq.gz \
+    SRR12345_1_paired.trimmed.fq.gz SRR12345_1_unpaired.trimmed.fq.gz \
+    SRR12345_2_paired.trimmed.fq.gz SRR12345_2_unpaired.trimmed.fq.gz \
+    ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:2:keepBothReads LEADING:3 TRAILING:3 MINLEN:36
+```
+
+说明：
+
+* ``` /path/to/trimmomatic-0.39.jar ```  ： 在运行时需要被真实的 ``` trimmomatic-0.39.jar ``` 的位置替代，比如它在磁盘上的位置为： ``` /home/wchen/Downloads/Trimmomatic-0.39/trimmomatic-0.39.jar ``` ，那么相应的命令为：
+
+``` java -jar /home/wchen/Downloads/Trimmomatic-0.39/trimmomatic-0.39.jar ```
+
+* ``` PE ```  ：表示
+
