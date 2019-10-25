@@ -1654,6 +1654,54 @@ div.tocify {
 </div>
 <div id="fastqc工具进行序列质量评估" class="section level2">
 <h2>2. FASTQC工具进行序列质量评估</h2>
+<p>FASTQC是一款基于JAVA的序列质量评估程序。从测序公司拿到<code>原始数据</code>以后，可以用它评价测序质量。</p>
+<p>用<code>trimmomatic</code>去除接头和低质量序列后，即得到<code>clean data</code>，也可以再次用它评估质量。</p>
+<p>通常<code>trimmomatic</code>处理后评估质量会有所提高，但也有一些特殊情况，依不同数据类型而不同。</p>
+<div id="可选部分安装java" class="section level3">
+<h3>2.1. 可选部分：安装JAVA</h3>
+<p>大多数Linux和Mac操作系统都自带Java程序。如果在 Ubuntu <code>terminal</code> 终端程序中运行 <code>java</code> ，出现以下提示时，表示需要安装 Java：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sh numberLines lineAnchors"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" href="#cb4-1" data-line-number="1"><span class="ex">Command</span> <span class="st">'java'</span> not found, but can be installed with:</a>
+<a class="sourceLine" id="cb4-2" href="#cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" href="#cb4-3" data-line-number="3"><span class="fu">sudo</span> apt install default-jre            </a>
+<a class="sourceLine" id="cb4-4" href="#cb4-4" data-line-number="4"><span class="fu">sudo</span> apt install openjdk-11-jre-headless</a>
+<a class="sourceLine" id="cb4-5" href="#cb4-5" data-line-number="5"><span class="fu">sudo</span> apt install openjdk-8-jre-headless </a></code></pre></div>
+<p>按上面提示进行安装即可，比如：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sh numberLines lineAnchors"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" href="#cb5-1" data-line-number="1"><span class="fu">sudo</span> apt install openjdk-11-jre-headless</a></code></pre></div>
+<p>成功后，运行 <code>java -version</code> 命令 ，会得到以下或类似结果：</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sh numberLines lineAnchors"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" href="#cb6-1" data-line-number="1"><span class="ex">java</span> version <span class="st">&quot;1.8.0_111&quot;</span></a>
+<a class="sourceLine" id="cb6-2" href="#cb6-2" data-line-number="2"><span class="ex">Java</span>(TM) <span class="ex">SE</span> Runtime Environment (build 1.8.0_111-b14)</a>
+<a class="sourceLine" id="cb6-3" href="#cb6-3" data-line-number="3"><span class="ex">Java</span> HotSpot(TM) <span class="ex">64-Bit</span> Server VM (build 25.111-b14, mixed mode)</a></code></pre></div>
+<p>Mac的安装详见： <a href="https://java.com/en/download/help/mac_install.xml" class="uri">https://java.com/en/download/help/mac_install.xml</a></p>
+</div>
+<div id="fastaqc安装" class="section level3">
+<h3>2.2. FASTAQC安装</h3>
+<p>FASTAQC的 mac 版本安装比较简单，只需要去官网：<a href="https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc" class="uri">https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc</a> 下载 Mac 版本 (Mac DMG image)，安装后可在 <code>Applications</code> 目录中找到可视化运行版本。</p>
+<p>而在 Linux 版本中，可以在解压后的 <code>FastQC/</code> 目录下找到 <code>fastqc</code> 文件。</p>
+<p>用以下<code>terminal</code>命令将<code>FastQC/</code>目录加入<code>$PATH</code>系统变量（只需要运行一次）：</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sh numberLines lineAnchors"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" href="#cb7-1" data-line-number="1"><span class="bu">echo</span> <span class="st">'export PATH=/path/to/FastQC:$PATH'</span> <span class="op">&gt;&gt;</span>~/.bashrc</a>
+<a class="sourceLine" id="cb7-2" href="#cb7-2" data-line-number="2"><span class="bu">source</span> ~/.bashrc</a></code></pre></div>
+<p><strong>注意</strong> 将 <code>/path/to/FastQC</code> 改为 <code>FastQC</code> 的真实位置。</p>
+<p>在 <code>terminal</code> 中运行 ：</p>
+<p><code>fastqc -h</code></p>
+<p>会得到帮助信息：</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource sh numberLines lineAnchors"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" href="#cb8-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb8-2" href="#cb8-2" data-line-number="2">            <span class="ex">FastQC</span> - A high throughput sequence QC analysis tool</a>
+<a class="sourceLine" id="cb8-3" href="#cb8-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb8-4" href="#cb8-4" data-line-number="4"><span class="ex">SYNOPSIS</span></a>
+<a class="sourceLine" id="cb8-5" href="#cb8-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb8-6" href="#cb8-6" data-line-number="6">    <span class="ex">fastqc</span> seqfile1 seqfile2 .. seqfileN</a>
+<a class="sourceLine" id="cb8-7" href="#cb8-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb8-8" href="#cb8-8" data-line-number="8">    <span class="ex">fastqc</span> [-o output dir] [--(no)<span class="ex">extract</span>] [-f fastq<span class="kw">|</span><span class="ex">bam</span><span class="kw">|</span><span class="ex">sam</span>]</a>
+<a class="sourceLine" id="cb8-9" href="#cb8-9" data-line-number="9">           [<span class="ex">-c</span> contaminant file] seqfile1 .. seqfileN</a></code></pre></div>
+<p>假设输入文件为：<code>SRR12345.fq</code>，则命令为：</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sh numberLines lineAnchors"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" href="#cb9-1" data-line-number="1"><span class="ex">fastqc</span> SRR12345.fq -o fastqc_output</a></code></pre></div>
+<p>将fastqc后的文件输出到<code>fastqc_outpput/</code>目录下，可以看到在该目录下生成了一个.html，该文件即为序列的分析结果，可用浏览器查看；另一个压缩文件是具体数据。</p>
+<p>关于如何理解 fastqc 输出结果，请见以下在线文档：</p>
+<ul>
+<li><p><a href="https://zhuanlan.zhihu.com/p/20731723" class="uri">https://zhuanlan.zhihu.com/p/20731723</a></p></li>
+<li><p><a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/" class="uri">http://www.bioinformatics.babraham.ac.uk/projects/fastqc/</a></p></li>
+</ul>
+</div>
 </div>
 
 

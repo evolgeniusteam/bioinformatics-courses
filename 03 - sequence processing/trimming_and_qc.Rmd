@@ -126,5 +126,86 @@ java -jar trimmomatic-0.35.jar SE \
 
 ## 2. FASTQC工具进行序列质量评估
 
+FASTQC是一款基于JAVA的序列质量评估程序。从测序公司拿到```原始数据```以后，可以用它评价测序质量。
 
+用```trimmomatic```去除接头和低质量序列后，即得到```clean data```，也可以再次用它评估质量。
+
+通常```trimmomatic```处理后评估质量会有所提高，但也有一些特殊情况，依不同数据类型而不同。
+
+### 2.1. 可选部分：安装JAVA
+
+大多数Linux和Mac操作系统都自带Java程序。如果在 Ubuntu ```terminal ``` 终端程序中运行 ``` java ``` ，出现以下提示时，表示需要安装 Java：
+
+```{sh eval=F}
+Command 'java' not found, but can be installed with:
+
+sudo apt install default-jre            
+sudo apt install openjdk-11-jre-headless
+sudo apt install openjdk-8-jre-headless 
+```
+
+按上面提示进行安装即可，比如：
+
+```{sh eval=F}
+sudo apt install openjdk-11-jre-headless
+```
+
+成功后，运行 ```  java -version ``` 命令 ，会得到以下或类似结果：
+
+```{sh eval=F}
+java version "1.8.0_111"
+Java(TM) SE Runtime Environment (build 1.8.0_111-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.111-b14, mixed mode)
+```
+
+Mac的安装详见： https://java.com/en/download/help/mac_install.xml
+
+### 2.2. FASTAQC安装
+
+FASTAQC的 mac 版本安装比较简单，只需要去官网：https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc 下载 Mac 版本 (Mac DMG image)，安装后可在 ``` Applications ``` 目录中找到可视化运行版本。
+
+而在 Linux 版本中，可以在解压后的 ``` FastQC/ ``` 目录下找到 ``` fastqc ``` 文件。
+
+用以下```terminal```命令将``` FastQC/ ```目录加入```$PATH```系统变量（只需要运行一次）：
+
+```{sh eval=F}
+echo 'export PATH=/path/to/FastQC:$PATH' >>~/.bashrc
+source ~/.bashrc
+```
+
+**注意** 将 ``` /path/to/FastQC ``` 改为 ``` FastQC ``` 的真实位置。
+
+
+在 ``` terminal ``` 中运行 ：
+
+``` fastqc -h ``` 
+
+会得到帮助信息：
+
+```{sh eval=F}
+
+            FastQC - A high throughput sequence QC analysis tool
+
+SYNOPSIS
+
+	fastqc seqfile1 seqfile2 .. seqfileN
+
+    fastqc [-o output dir] [--(no)extract] [-f fastq|bam|sam]
+           [-c contaminant file] seqfile1 .. seqfileN
+
+```
+
+假设输入文件为：``` SRR12345.fq ```，则命令为： 
+
+```{sh eval=F}
+fastqc SRR12345.fq -o fastqc_output
+```
+
+将fastqc后的文件输出到```fastqc_outpput/```目录下，可以看到在该目录下生成了一个.html，该文件即为序列的分析结果，可用浏览器查看；另一个压缩文件是具体数据。
+
+关于如何理解 fastqc 输出结果，请见以下在线文档：
+
+* https://zhuanlan.zhihu.com/p/20731723
+
+* http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
 
