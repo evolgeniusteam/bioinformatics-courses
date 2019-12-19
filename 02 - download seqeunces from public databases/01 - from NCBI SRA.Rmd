@@ -1,0 +1,44 @@
+---
+title: "01 - download sequence from NCBI SRA"
+
+subtitle: "HUST Bioinformatics course series"
+author: "Wei-Hua Chen (CC BY-NC 4.0)"
+institute: "HUST, China"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    highlight:  pygment
+  github_document:
+    toc: true
+    toc_depth: 2
+---
+
+
+```{r setup, include=FALSE }
+knitr::opts_chunk$set(
+  echo = TRUE,
+  class.source = "numberLines lineAnchors", 
+  class.output = c("numberLines lineAnchors chunkout") 
+)
+
+```
+
+## 学习要求
+
+* 操作系统为 Linux (Ubuntu或类似版本)
+* 具有Linux系统操作基础
+
+## 下载/安装 ```sra-tools ```
+
+在sra-tools中，NCBI提供了一系列工具，用于SRA数据的下载和后期处理。
+
+首先，从 https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit 下载合适的版本，比如：
+
+``` Ubuntu Linux 64 bit architecture ``` ，最新版本（2019年10月）为：http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.9.6-1/sratoolkit.2.9.6-1-ubuntu64.tar.gz
+
+解压后，
+
+

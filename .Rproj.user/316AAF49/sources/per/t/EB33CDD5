@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1572009437306.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2061938653",
+    "id" : "EB33CDD5",
+    "lastKnownWriteTime" : 1572009822,
+    "last_content_update" : 1572009822653,
+    "path" : "~/workspace/华中科技大学/06-学生培养/062-本科教学/bioinformatics/02 - download seqeunces from public databases/01 - from NCBI SRA.Rmd",
+    "project_path" : "02 - download seqeunces from public databases/01 - from NCBI SRA.Rmd",
+    "properties" : {
+        "cursorPosition" : "41,4",
+        "scrollLine" : "11",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

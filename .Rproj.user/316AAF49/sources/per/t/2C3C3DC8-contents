@@ -175,6 +175,7 @@ source ~/.bashrc
 
 **注意** 将 ``` /path/to/FastQC ``` 改为 ``` FastQC ``` 的真实位置。
 
+完成后即可在任何目录下运行 ``` fastqc ```。
 
 在 ``` terminal ``` 中运行 ：
 

@@ -1,22 +1,22 @@
-本地BLAST的安装与使用
+Run BLAST locally
 ================
 
-## 学习要求
+## prerequisites
 
-  - 操作系统为 Linux (Ubuntu或类似版本)，或 MacOS
-  - 具有Linux系统操作基础
+  - Operating Systems should be Linux (Ubuntu or similar distributions) or MacOS
+  - Basic knowledge about Linux OS
 
-## 1\. 下载并安装BLAST
+## 1\. Download and install BLAST
 
-### 1.1 Ubuntu 安装
+### 1.1 install on Ubuntu
 
-在Ubuntu的 terminal 中运行：
+Run the following command in Ubuntu terminal：
 
 ``` sh
 blastp
 ```
 
-如果出现：
+If the following message shows up：
 
 ``` sh
 Command 'blastp' not found, but can be installed with:
@@ -24,83 +24,76 @@ Command 'blastp' not found, but can be installed with:
 apt install ncbi-blast+
 ```
 
-则表示还未安装，可以按提示的命令进行安装：
+please use the following command to install BLAST tools:
 
 ``` sh
 sudo apt install ncbi-blast+
 ```
 
-**注意** 安装需要 `root`
-或超级用户权限。
+**NOTE** root or superuser priviledge is required
 
-如果出现：
+if BLAST has been installed, you will see：
 
 ``` sh
 BLAST query/options error: Either a BLAST database or subject sequence(s) must be specified
 Please refer to the BLAST+ user manual.
 ```
 
-则表示已经安装过了。
 
-### 1.2 MacOS 安装
+### 1.2 install on MacOS
 
-  - 在浏览器中输入：
-    <ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/，进入NCBI>
-    BLAST的FTP下载页面。
+  - go to the NCBI BLAST FTP website：
+    <ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/>
 
-  - 然后选择合适的版本进行下载，文件名通常为： `ncbi-blast-#####+-x64-macosx.tar.gz`。其中
-    `#####` 为版本号，比如：`2.9.0`。
+  - choose the latest version for your OS to download. Usually, the file name should be like: `ncbi-blast-#####+-x64-macosx.tar.gz`. In which
+    `#####` is the version ID，e.g. `2.9.0`。
 
-  - 解压缩后，进入 terminal ，用以下命令将相关可执行文件 `copy` 到 `/usr/local/bin` 目录：
+  - download to local folder, unzip the file
 
-<!-- end list -->
+  - enter terminal, use the following command to copy executables to `/usr/local/bin`:
 
 ``` sh
 cp /path/to/NCBI_blast_folder/bin/* /usr/local/bin
 ```
 
-其中 `/path/to/NCBI_blast_folder` 为解压缩后产生的目录，比如：
-`/Users/wchen/Downloads/ncbi-blast-2.9.0+`。
+please replace `/path/to/NCBI_blast_folder` with the actual folder in which the BLAST executables were unzipped to, e.g.
+`/Users/wchen/Downloads/ncbi-blast-2.9.0+`.
 
-  - 之后在terminal的任何目录下运行：
-
-<!-- end list -->
+  - then you can run the following command at anywhere in the ```terminal``` app:
 
 ``` sh
 blastp -h
 ```
 
-如果出现 `blastp USAGE` 信息，即为安装成功。
 
-## 2\. 准备数据库及索引文件
 
-下面以小鼠所有的`protein coding genes` (蛋白序列) 为数据库。
+## 2\. prepare the database file and create index files
 
-  - 从浏览器进入： <ftp://ftp.ncbi.nlm.nih.gov/refseq/M_musculus/mRNA_Prot/>
+We will use all mouse `protein coding genes` as the database.
 
-  - 下载 `mouse.1.protein.faa.gz`
+  - first, go to the NCBI FTP site : <ftp://ftp.ncbi.nlm.nih.gov/refseq/M_musculus/mRNA_Prot/>
 
-  - 解压缩后，得到 `mouse.1.protein.faa`
+  - find and download `mouse.1.protein.faa.gz`
 
-  - 从 `terminal` 程序进入 `mouse.1.protein.faa` 所在的目录
+  - unzip it, and get file: `mouse.1.protein.faa`
 
-  - 运行以下命令建立索引：
+  - go to the folder where `mouse.1.protein.faa` can be found in  `terminal`
 
-<!-- end list -->
+  - run the following command to create index:
 
 ``` sh
 makeblastdb -in mouse.1.protein.faa -dbtype prot
 ```
 
-`makeblastdb` 建立索引程序，它两个参数的意义为：
+`makeblastdb` is the tool to create index, it has two parameters in this example:
 
-  - `-in` ： 输入文件， `fasta` 格式
+  - `-in` ： in put file in  `fasta` format
 
-  - `-dbtype` ：序列类型； `prot` 表示蛋白序列， `nucl` 表示核酸
+  - `-dbtype` ：sequence type； `prot` : protein， `nucl`  : nucleotide
 
-可使用 `makeblastdb -help` 命令查看其它参数及使用方法。
+use command: `makeblastdb -help` to get all options/parameters and their respective usages
 
-运行成功后，会得到以下几个文件：
+If run successfully, the following new files will be generated:
 
 ``` sh
 mouse.1.protein.faa.phr
@@ -108,24 +101,24 @@ mouse.1.protein.faa.psq
 mouse.1.protein.faa.pin
 ```
 
-## 3\. 准备 `query` 序列
+## 3\. get `query` sequence
 
-我们从NCBI搜索并下载 `brca1` 基因的蛋白序列，作为 `query` 序列。`query` 文件可以包含多个序列。
+We will search and download protein sequence for the `brca1` gene as the `query`; the `query` file may contain multiple sequences.
 
-  - 从浏览器进入NCBI蛋白质数据库： <https://www.ncbi.nlm.nih.gov/protein/>
+  - go to the NCBI protein database ： <https://www.ncbi.nlm.nih.gov/protein/>
 
-  - 在搜索框内输入： `human[organism] brca1`
+  - enter in the search box:  `human[organism] brca1`
 
-  - 选择第一个搜索结果，即：<https://www.ncbi.nlm.nih.gov/protein/AAC37594.1>
+  - choose the first entry, e.g.: <https://www.ncbi.nlm.nih.gov/protein/AAC37594.1>
 
-  - 下载其 `fasta` 格式序列，保存到 `mouse.1.protein.faa` 所在的目录，取名为：
-    `human_brca1.faa` 。
+  - download its sequence in  `fasta` format, and save to file `human_brca1.faa` in the same folder with  `mouse.1.protein.faa`;
+     。
 
-  - 用 `more human_brca1.faa` 查看文件内容，确认其格式正确。
+  - double check the file contents by using `more human_brca1.faa`.
 
-## 4\. 运行 `blast` 并查看结果
+## 4\. run `blast` and check the output
 
-用以下命令进行 `blast` ，将 `human brca1` 的蛋白序列与所有小鼠蛋白序列进行比较：
+use the following command to  `blast` `human brca1` against all mouse protein sequences:
 
 ``` sh
 blastp -query human_brca1.faa \
@@ -134,21 +127,20 @@ blastp -query human_brca1.faa \
     -evalue 1e-5
 ```
 
-上述参数分别为：
+the parameters are：
 
 ``` sh
--query  : 输入序列文件
--db     : 数据库文件
--out    : 比对输出结果文件
--evalue : e-value cutoff 值
+-query  : input file
+-db     : database file, it should be properly indexed
+-out    : output format
+-evalue : e-value cutoff
 ```
 
-其它参数可通过 `blastp -help` 查看。
+use `blastp -help` to check other options/parameters;
 
-注意：`blast` 结果可以有**19种**输出格式，用 `-outfmt` 参数指定，取值范围为 `0-18` 。其中 `0, 6, 7`
-最为常用。
+please note that `blast` can save the search results in **19种** formats, users can use `-outfmt` to specify the output format. Formats `0, 6, 7` are commonly used. By default its output format is `0`.
 
-比如，指定输出格式为**7** (Tabular with comment lines)：
+Use output format **7** (Tabular with comment lines)：
 
 ``` sh
 blastp -query human_brca1.faa \
@@ -158,30 +150,31 @@ blastp -query human_brca1.faa \
     -evalue 1e-5
 ```
 
-请自行查看结果 (`hm_brca1_blp_mm_GRCm38.outfmt7.txt`) 并比较与默认输出
-(`hm_brca1_blp_mm_GRCm38.out.txt`) 的区别。
+please compare the outputs of the two runs:
+``` sh
+hm_brca1_blp_mm_GRCm38.outfmt7.txt
+hm_brca1_blp_mm_GRCm38.out.txt
+```
 
-## 5\. 练习
+## 5\. practice
 
-用`blast`找到**大猩猩**基因组中与人 `brca2` 基因相似的序列。
+Use `blast` to find homologous sequences of human brca2 protein in all gorila proteins:
 
-  - 下载 `human brca2` 的蛋白序列，
+  - download the protein sequence of `human brca2` gene,
 
-  - 找到并下载**大猩猩**全部基因的蛋白序列，
+  - download all protein sequences of **gorila**,
 
-  - 将两者进行序列比对，
+  - do blast and use `evalue <= 1e-5` as cutoff
 
-  - 以`evalue <= 1e-5` 为标准，挑选出**大猩猩**基因组中与人 `brca2` 相似的基因。
+Key points：
 
-练习要点与难点：
+  - where to download sequences for gorila?
 
-  - 去哪里下载**大猩猩**的相关序列？
+  - how to create index files ?
 
-  - 如何为数据库建立索引，并进行 `blast` 比对？
+Extended questions：
 
-延伸问题：
-
-  - `blast` 提供的工具都有哪些？
+  - how many tools are in the `blast` tool kit?
       - `blastp`
       - …
-  - 怎么选择使用合适的工具进行序列比对？
+  - how to choose the correct tool according to the molecular types (protein or nucleotide) of the sequences in the input and database files?
