@@ -6,6 +6,10 @@ Run BLAST locally
   - Operating Systems should be Linux (Ubuntu or similar distributions) or MacOS
   - Basic knowledge about Linux OS
 
+## for window users
+
+Please consult the NCBI official tutorial for details: https://www.ncbi.nlm.nih.gov/books/NBK52637/.
+
 ## 1\. Download and install BLAST
 
 ### 1.1 install on Ubuntu
