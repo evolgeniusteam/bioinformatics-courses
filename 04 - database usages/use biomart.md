@@ -99,4 +99,4 @@ and show in the final results:
 
 1. download sequences of all human miRNAs located on chrs 1,3,7,X in fasta format.
 
-2. get a list of gorilla protein coding genes located on chr10 and their associated GO terms. 
+2. get a list of gorilla protein coding genes located on chr10 and their associated GO terms.
